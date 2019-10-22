@@ -36,8 +36,9 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 
 
+dataset_dir = '/home/priya/code/data_volume/timecycle'
 params = {}
-params['filelist'] = '/nfs.yoda/xiaolonw/davis/DAVIS/vallist.txt'
+params['filelist'] = os.path.join(dataset_dir, 'davis/DAVIS/vallist.txt')
 # params['batchSize'] = 24
 params['imgSize'] = 320
 params['cropSize'] = 320
@@ -201,7 +202,7 @@ def main():
     title = 'videonet'
     if args.resume:
         # Load checkpoint.
-        print('==> Resuming from checkpoint..')
+        print('==> Resuming from checkpoint.. %s' % args.resume)
         assert os.path.isfile(args.resume), 'Error: no checkpoint directory found!'
         args.checkpoint = os.path.dirname(args.resume)
         checkpoint = torch.load(args.resume)
@@ -516,8 +517,6 @@ def test(val_loader, model, epoch, use_cuda):
 
             scipy.misc.imsave(imname, np.uint8(img_with_heatmap))
             scipy.misc.imsave(imname2, np.uint8(predlbls_val))
-
-
 
     fileout.close()
 

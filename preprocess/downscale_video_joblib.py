@@ -11,9 +11,14 @@ from joblib import delayed
 from joblib import Parallel
 import pandas as pd
 
-file_src = 'YOUR_DATASET_FOLDER/manifest.txt'
-folder_path = 'YOUR_DATASET_FOLDER/vlog/'
-output_path = 'YOUR_DATASET_FOLDER/vlog_256/'
+data_path = '/home/priya/code/data_volume/timecycle'
+file_src = os.path.join(data_path, 'manifest.txt')
+#folder_path = os.path.join(data_path, 'vlog/')
+folder_path = os.path.join(data_path, 'vlog')
+print(folder_path)
+#output_path = os.path.join(data_path, 'vlog256/')
+output_path = os.path.join(data_path, 'vlog256')
+print(output_path)
 
 
 file_list = []
@@ -33,6 +38,7 @@ def download_clip(inname, outname):
     status = False
     inname = '"%s"' % inname
     outname = '"%s"' % outname
+    print(inname, outname)
     command = "ffmpeg  -loglevel panic -i {} -filter:v scale=\"trunc(oh*a/2)*2:256\" -q:v 1 -c:a copy {}".format( inname, outname)
     try:
         output = subprocess.check_output(command, shell=True,
@@ -47,11 +53,10 @@ def download_clip(inname, outname):
 
 def download_clip_wrapper(row):
     """Wrapper for parallel processing purposes."""
-
     videoname = row
 
-    inname = folder_path  + '/' + videoname + '/clip.mp4'
-    outname = output_path + '/' +videoname
+    inname = folder_path  + videoname + 'clip.mp4'
+    outname = output_path + videoname
 
     if os.path.isdir(outname) is False:
         try:
@@ -59,11 +64,11 @@ def download_clip_wrapper(row):
         except:
             print(outname)
 
-    outname = outname + '/clip.mp4'
+    outname = outname + 'clip.mp4'
 
 
     downloaded, log = download_clip(inname, outname)
+    print(downloaded)
     return downloaded
-
 
 status_lst = Parallel(n_jobs=15)(delayed(download_clip_wrapper)(row) for row in file_list)

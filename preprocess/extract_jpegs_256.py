@@ -12,11 +12,10 @@ from joblib import Parallel
 import pandas as pd
 
 
-
-folder_path = 'YOUR_DATASET_FOLDER/vlog_256/'
-output_path = 'YOUR_DATASET_FOLDER/vlog_frames_12fps/'
-file_src = 'YOUR_DATASET_FOLDER/manifest.txt'
-
+data_path = '/home/priya/code/data_volume/timecycle'
+folder_path = os.path.join(data_path, 'vlog_256/')
+output_path = os.path.join(data_path, 'vlog_frames_12fps/')
+file_src = os.path.join(data_path, 'manifest.txt')
 
 file_list = []
 

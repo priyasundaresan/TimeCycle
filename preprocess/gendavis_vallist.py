@@ -1,13 +1,14 @@
 import os
 import numpy as np
 
-outlist = 'YOUR_DATASET_FOLDER/davis/DAVIS/vallist.txt'
-imgfolder = 'YOUR_DATASET_FOLDER/davis/DAVIS/JPEGImages/480p/'
-lblfolder = 'YOUR_DATASET_FOLDER/davis/DAVIS/Annotations/480p/'
+dataset_folder = '/home/priya/code/data_volume/timecycle'
+outlist = os.path.join(dataset_folder, 'davis/DAVIS/vallist.txt')
+imgfolder = os.path.join(dataset_folder, 'davis/DAVIS/JPEGImages/480p/')
+lblfolder = os.path.join(dataset_folder, 'davis/DAVIS/Annotations/480p/')
 
 jpglist = []
 
-f1 = open('YOUR_DATASET_FOLDER/davis/DAVIS/ImageSets/2017/val.txt', 'r')
+f1 = open(os.path.join(dataset_folder, 'davis/DAVIS/ImageSets/2017/val.txt'), 'r')
 for line in f1:
     line = line[:-1]
     jpglist.append(line)
@@ -21,8 +22,6 @@ for i in range(len(jpglist)):
     fname = jpglist[i]
     fnameim = imgfolder + fname + '/'
     fnamelbl= lblfolder + fname + '/'
-
-    print(len(os.listdir(fnameim)) )
 
     if len(os.listdir(fnameim)) > 20:
 

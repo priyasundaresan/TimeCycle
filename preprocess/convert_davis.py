@@ -9,9 +9,14 @@ jpglist = []
 
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument('-o', '--out_folder', default='/scratch/xiaolonw/davis_results/', type=str)
-parser.add_argument('-i', '--in_folder', default='/scratch/xiaolonw/davis_results_mask_sep/', type=str)
-parser.add_argument('-d', '--dataset', default='/scratch/xiaolonw/davis/', type=str)
+
+#parser.add_argument('-o', '--out_folder', default='/scratch/xiaolonw/davis_results/', type=str)
+#parser.add_argument('-i', '--in_folder', default='/scratch/xiaolonw/davis_results_mask_sep/', type=str)
+#parser.add_argument('-d', '--dataset', default='/scratch/xiaolonw/davis/', type=str)
+
+parser.add_argument('-o', '--out_folder', default='/home/priya/code/data_volume/timecycle/davis_results/', type=str)
+parser.add_argument('-i', '--in_folder', default='/home/priya/code/data_volume/timecycle/davis_results_mask_sep/', type=str)
+parser.add_argument('-d', '--dataset', default='/home/priya/code/data_volume/timecycle/davis/', type=str)
 
 args = parser.parse_args()
 
@@ -68,6 +73,7 @@ for i in range(len(jpglist)):
 
     for j in range(len(files) - 1):
 
+	print("outfolder: %s, current_folder: %s" % (outfolder, current_folder))
         outname = outfolder + "{:05d}.png".format(j + 1)
         inname  = current_folder + str(i) + '_' + str(j + topk) + '_mask.png'
         lblimg  = scipy.misc.imread(inname)
