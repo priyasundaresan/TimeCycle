@@ -36,7 +36,7 @@ import torch.nn.functional as F
 from torch.autograd import Variable
 
 
-dataset_dir = '/home/priya/code/data_volume/timecycle'
+dataset_dir = 'data_volume/timecycle'
 params = {}
 params['filelist'] = os.path.join(dataset_dir, 'davis/DAVIS/vallist.txt')
 # params['batchSize'] = 24
