@@ -6,11 +6,9 @@ import os
 import getpass
 
 if __name__=="__main__":
-
 	print("building docker container . . . ")
 	user_name = getpass.getuser()
 	default_image_name = user_name + "-timecycle"
-
 
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-i", "--image", type=str,
@@ -26,14 +24,9 @@ if __name__=="__main__":
 
 	args = parser.parse_args()
 	print("building docker image named ", args.image)
-	cmd = "docker build --build-arg USER_NAME=%(user_name)s \
-			--build-arg USER_PASSWORD=%(password)s \
-			--build-arg USER_ID=%(user_id)s \
-			--build-arg USER_GID=%(group_id)s" \
-			%{'user_name': user_name, 'password': args.password, 'user_id': args.user_id, 'group_id': args.group_id}
+	cmd = "docker build "
 	cmd += " -t %s -f timecycle.dockerfile ." % args.image
 	
-
 	print("command = \n \n", cmd)
 	print("")
 

@@ -2,8 +2,11 @@
 
 set -euxo pipefail
 
+# UPDATE PACKAGE MANAGERS
 apt-get update
 apt update
+
+# DO APT INSTALLS
 apt install --no-install-recommends \
   vim \
   git \
@@ -13,17 +16,24 @@ apt install --no-install-recommends \
   python-pip \
   python-dev \
 
+# DO APT-GET INSTALLS
+apt-get -y install \
+  ipython \
+  ipython-notebook \
+  libglib2.0-0
+
 apt-get install \
   libgtk2.0-dev \
   libsm6 \
   libxrender1 \
   libfontconfig1 \
-  python-tk
+  python-tk \
+  ffmpeg
 
+# DO PIP INSTALLS
 pip install --upgrade pip==9.0.3
 pip install -U setuptools
 
-apt-get -y install ipython ipython-notebook libglib2.0-0
 pip install \
   numpy \
   jupyter \
@@ -33,4 +43,6 @@ pip install \
   torch==1.0.0 \
   torchvision \
   matplotlib  \
-  scikit-image
+  scikit-image \
+  imageio \
+  joblib

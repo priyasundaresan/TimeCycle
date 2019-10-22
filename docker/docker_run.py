@@ -9,12 +9,12 @@ import getpass
 
 if __name__=="__main__":
     user_name = getpass.getuser()
-    default_image_name = 'priya-timecycle'
+    default_image_name = '{}-timecycle'.format(user_name)
     parser = argparse.ArgumentParser()
     parser.add_argument("-i", "--image", type=str,
         help="(required) name of the image that this container is derived from", default=default_image_name)
 
-    parser.add_argument("-c", "--container", type=str, default="pytorch-container-priya", help="(optional) name of the container")\
+    parser.add_argument("-c", "--container", type=str, default="timecycle-container-{}".format(user_name), help="(optional) name of the container")\
 
     parser.add_argument("-d", "--dry_run", action='store_true', help="(optional) perform a dry_run, print the command that would have been executed but don't execute it.")
 
@@ -45,16 +45,10 @@ if __name__=="__main__":
     cmd += " -v ~/.ssh:%(home_directory)s/.ssh " % {'home_directory': home_directory}   # mount ssh keys
     cmd += " -v /media:/media " #mount media
 
-    # cmd += " -v ~/.torch:%(home_directory)s/.torch " % {'home_directory': home_directory}  # mount torch folder 
-                                                        # where pytorch standard models (i.e. resnet34) are stored
-
-    # cmd += " --user %s " % user_name                                                    # login as current user
-
     # uncomment below to mount your data volume
     config_yaml = yaml.load(file(config_file))
     host_name = socket.gethostname()
-    #cmd += " -v %s:%s/data_volume " %(config_yaml[host_name][user_name]['path_to_data_directory'], dense_correspondence_source_dir)
-    cmd += " -v %s:%s/data_volume " %('/raid/priya/data', dense_correspondence_source_dir)
+    cmd += " -v %s:%s/data_volume " %(config_yaml[host_name][user_name]['path_to_data_directory'], dense_correspondence_source_dir)
 
     # expose UDP ports
     cmd += " -p 8888:8888 "
@@ -68,9 +62,6 @@ if __name__=="__main__":
     cmd += " --privileged -v /dev/bus/usb:/dev/bus/usb " # allow usb access
 
     cmd += " --rm " # remove the image when you exit
-
-
-
 
     if args.entrypoint and args.entrypoint != "":
         cmd += "--entrypoint=\"%(entrypoint)s\" " % {"entrypoint": args.entrypoint}
