@@ -163,7 +163,8 @@ class CycleTime(nn.Module):
         x = x.transpose(1, 2)
         x_pre = self.encoderVideo(x)
 
-        if self.detach_network and can_detach:
+        #if self.detach_network and can_detach:
+        if True:
             x_pre = x_pre.detach()
 
         x = self.afterconv1(x_pre)

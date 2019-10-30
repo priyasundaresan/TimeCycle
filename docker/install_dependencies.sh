@@ -20,7 +20,7 @@ apt install --no-install-recommends \
 apt-get -y install \
   ipython \
   ipython-notebook \
-  libglib2.0-0
+  libglib2.0-0 
 
 apt-get install \
   libgtk2.0-dev \
@@ -45,4 +45,5 @@ pip install \
   matplotlib  \
   scikit-image \
   imageio \
-  joblib
+  joblib \
+  gdown

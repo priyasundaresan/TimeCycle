@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 data_path = '/home/priya/code/data_volume/timecycle'
-src = os.path.join(data_path, 'manifest.txt')
+src = os.path.join(data_path, 'manifest_new.txt')
 outlist = os.path.join(data_path, 'vlog_frames_12fps.txt')
 foldername = '/home/priya/code/data_volume/timecycle/vlog_frames_12fps/'
 

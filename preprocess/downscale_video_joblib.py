@@ -14,12 +14,11 @@ import pandas as pd
 data_path = '/home/priya/code/data_volume/timecycle'
 file_src = os.path.join(data_path, 'manifest.txt')
 #folder_path = os.path.join(data_path, 'vlog/')
-folder_path = os.path.join(data_path, 'vlog')
+folder_path = os.path.join(data_path, 'vlog/')
 print(folder_path)
 #output_path = os.path.join(data_path, 'vlog256/')
-output_path = os.path.join(data_path, 'vlog256')
+output_path = os.path.join(data_path, 'vlog256/')
 print(output_path)
-
 
 file_list = []
 
@@ -36,8 +35,8 @@ f.close()
 def download_clip(inname, outname):
 
     status = False
-    inname = '"%s"' % inname
-    outname = '"%s"' % outname
+    #inname = '"%s"' % inname
+    #outname = '"%s"' % outname
     print(inname, outname)
     command = "ffmpeg  -loglevel panic -i {} -filter:v scale=\"trunc(oh*a/2)*2:256\" -q:v 1 -c:a copy {}".format( inname, outname)
     try:
@@ -48,6 +47,7 @@ def download_clip(inname, outname):
 
     # Check if the video was successfully saved.
     status = os.path.exists(outname)
+    print(status)
     return status, 'Downloaded'
 
 

@@ -47,7 +47,9 @@ from utils import Logger, AverageMeter, mkdir_p, savefig
 import models.dataset.vlog_train as vlog
 
 params = {}
-params['filelist'] = '/nfs.yoda/xiaolonw/vlog/vlog_frames_12fps.txt'
+#params['filelist'] = '/nfs.yoda/xiaolonw/vlog/vlog_frames_12fps.txt'
+#params['filelist'] = '/home/priya/code/data_volume/timecycle/rope_dset.txt'
+params['filelist'] = '/home/priya/code/data_volume/timecycle/vlog_frames_12fps.txt'
 params['imgSize'] = 256
 params['imgSize2'] = 320
 params['cropSize'] = 240
@@ -80,7 +82,7 @@ parser.add_argument('--momentum', default=0.5, type=float, metavar='M',
 parser.add_argument('--weight-decay', '--wd', default=0.0, type=float,
                     metavar='W', help='weight decay (default: 1e-4)')
 # Checkpoints
-parser.add_argument('-c', '--checkpoint', default='/scratch/xiaolonw/pytorch_checkpoints/CycleTime/', type=str, metavar='PATH',
+parser.add_argument('-c', '--checkpoint', default='/home/priya/code/data_volume/timecycle/rope_checkpoints/', type=str, metavar='PATH',
                     help='path to save checkpoint (default: checkpoint)')
 parser.add_argument('--resume', default='', type=str, metavar='PATH',
                     help='path to latest checkpoint (default: none)')
@@ -276,6 +278,7 @@ def train(train_loader, model, criterion, optimizer, epoch, use_cuda, args):
         # optimizerC.zero_grad()
 
         if imgs.size(0) < params['batchSize']:
+	    print("imgs size < batchSize")
             break
 
         imgs = torch.autograd.Variable(imgs.cuda())

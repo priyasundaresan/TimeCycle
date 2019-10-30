@@ -13,9 +13,10 @@ import pandas as pd
 
 
 data_path = '/home/priya/code/data_volume/timecycle'
-folder_path = os.path.join(data_path, 'vlog_256/')
-output_path = os.path.join(data_path, 'vlog_frames_12fps/')
-file_src = os.path.join(data_path, 'manifest.txt')
+folder_path = os.path.join(data_path, 'vlog256')
+output_path = os.path.join(data_path, 'vlog_frames_12fps')
+#file_src = os.path.join(data_path, 'manifest.txt')
+file_src = os.path.join(data_path, 'manifest_new.txt')
 
 file_list = []
 
@@ -29,10 +30,9 @@ f.close()
 def download_clip(inname, outname):
 
     status = False
-    inname = '"%s"' % inname
-    outname = '"%s"' % outname
-    command = "ffmpeg  -loglevel panic -i {} -q:v 1 -vf fps=12 {}/%06d.jpg".format( inname, outname)
-    # ffmpeg  -loglevel panic -i /scratch/xiaolonw/kinetics/data/train/making_tea/DImSF2kwc5g_000083_000093.mp4 -q:v 1 -vf fps=12 /nfs.yoda/xiaolonw/kinetics/jpg_outs/%06d.jpg
+    #print inname, outname
+    command = "ffmpeg  -loglevel panic -i {} -q:v 1 -vf fps=12 {}%06d.jpg".format( inname, outname)
+    print(command)
     try:
         output = subprocess.check_output(command, shell=True,
                                          stderr=subprocess.STDOUT)
@@ -41,6 +41,7 @@ def download_clip(inname, outname):
 
     # Check if the video was successfully saved.
     status = os.path.exists(outname)
+    print(status)
     return status, 'Downloaded'
 
 
@@ -49,7 +50,7 @@ def download_clip_wrapper(row):
 
     videoname = row
 
-    inname = folder_path  + '/' + videoname + '/clip.mp4'
+    inname = folder_path  + '/' + videoname + 'clip.mp4'
     outname = output_path + '/' +videoname
 
     if os.path.isdir(outname) is False:
